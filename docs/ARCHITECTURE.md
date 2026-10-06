@@ -137,7 +137,7 @@ disconnect, replacement, or close. This cache is not used for authorization.
 | Local AI model cache acquisition, explicit legacy migration, and active-path receipt selection | `HuggingFaceModelInstaller` + `LocalAiManifestStore` + `LocalAiInstallReconciler` | authoritative |
 | Exact Gateway wizard terminal-restart compatibility and bounded retry policy | `GatewayWizardRestartRecoveryPolicy` | authoritative |
 | Interactive onboarding routes and installation-step selection | `OnboardingFlowPolicy` | authoritative |
-| Adopted setup-page responsive hero/header/body/footer composition | `SetupPageShell` owns presentation slots and scrolling; `SecurityNoticePage`, `WelcomePage`, `CapabilitiesPage`, `AdvancedSetupPage`, `GatewaySetupPage`, `GatewaySetupDetailPage`, `ProgressPage`, `NativeGatewaySetupPage`, `SetupNativeConnectionPage`, `WizardPage`, `AiSetupPage`, `AiReadyPage` and `CompletePage` retain copy, native inputs, runtime rendering and existing actions. The wizard's named `MainScroller` remains a disabled content host; its active-question scrolling targets the shell. Slots remain mounted across viewport changes. `CompletePage` retains its absence of a canonical progress stage | authoritative |
+| Adopted setup-page responsive hero/header/body/footer composition | `SetupPageShell` owns presentation slots and scrolling; `SecurityNoticePage`, `WelcomePage`, `CapabilitiesPage`, `AdvancedSetupPage`, `GatewaySetupPage`, `GatewaySetupDetailPage`, `ProgressPage`, `NativeGatewaySetupPage`, `SetupNativeConnectionPage`, `WizardPage`, `AiSetupPage`, `AiReadyPage` and `CompletePage` retain copy, native inputs, runtime rendering and existing actions. Active wizard-question scrolling targets the shell. Slots remain mounted across viewport changes. `CompletePage` retains its absence of a canonical progress stage | authoritative |
 | Setup progress host seam | `ISetupProgressIndicator` accepts canonical route stages from `SetupWindow`; `OnboardingFlowPolicy` remains the canonical stage owner | authoritative |
 | Reusable step timeline presentation | `SetupStepIndicator` owns explicit step states, helper text, native template, semantic colors, glow and reduced-motion-safe transitions; adopted setup pages use it without adding completion or navigation authority | authoritative |
 | Legacy dot progress presentation | `SetupProgressIndicator` remains a dots-only compatibility renderer, not a canonical stage or milestone owner | authoritative |
@@ -334,11 +334,11 @@ Windows may still finish an already submitted deployment. No installed package
 is removed, and retry starts by resolving registration again.
 
 The page uses the shared `OnboardingMascot`, native `SettingsCard` rows with
-`SetupPhaseStatus`, and `SetupProgressIndicator` for support, package readiness,
+`SetupPhaseStatus`, and `SetupStepIndicator` for support, package readiness,
 profile preparation and verified runtime startup. Completed rows get checkmarks.
 Its Install stage leads to the same focused AI and Ready stages as WSL, with six
-native stages (WSL has an additional installation review). Progress sits above wrapping navigation actions on
-both pages so narrow windows do not overlay buttons on the indicator.
+native stages (WSL has an additional installation review). The timeline remains
+in the scrollable hero, while wrapping navigation actions stay in the fixed footer.
 It automatically transfers the staged session to `AiSetupPage`; no separate
 Install, Check again or Open Gateway setup actions remain. Retry is error/cancel
 recovery only. Preview never installs or starts a Gateway.
