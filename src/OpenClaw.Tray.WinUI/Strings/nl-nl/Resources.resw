@@ -7929,4 +7929,5 @@ Uw instellingen, gateway, bestanden en modellen blijven op hun plaats.</value>
   <data name="Onboarding_NativeConnection_Speech" xml:space="preserve"><value>Laten we uw verbinding controleren.</value></data>
   <data name="Onboarding_NativeConnection_Checking" xml:space="preserve"><value>De Gateway-verbinding controleren...</value></data>
   <data name="Onboarding_NativeConnection_Cancelled" xml:space="preserve"><value>Verbindingscontrole geannuleerd. Uw concept is ongewijzigd.</value></data>
+  <data name="Onboarding_Wizard_CompatibilitySpeech" xml:space="preserve"><value>Laten we uw AI verder verbinden.</value></data>
 </root>

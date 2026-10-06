@@ -61,6 +61,7 @@ public sealed partial class WizardPage : Page
     public WizardPage()
     {
         InitializeComponent();
+        SpeechText.Text = SetupLocalization.GetString("Onboarding_Wizard_CompatibilitySpeech");
         ConsoleRecoveryTerminalButton.Content = SetupLocalization.GetString("GatewayHostAccess_OpenTerminalLabel");
         TextInput.TextChanged += (_, _) => UpdateContinueState();
         SecretInput.PasswordChanged += (_, _) => UpdateContinueState();
@@ -1100,11 +1101,13 @@ public sealed partial class WizardPage : Page
 
     private void ScrollActiveIntoView()
     {
-        MainScroller.UpdateLayout();
+        // MainScroller remains the named content host; the shell owns vertical scrolling.
+        var scroller = WizardShell.Scroller;
+        scroller.UpdateLayout();
         // Bring the active step card's TITLE into view (just below the last answered
         // step) rather than jumping to the very bottom — scrolling to the bottom hid
         // the step's introduction/question when it had many options (e.g. web search).
-        if (MainScroller.Content is FrameworkElement content)
+        if (scroller.Content is FrameworkElement content)
         {
             try
             {
@@ -1113,7 +1116,7 @@ public sealed partial class WizardPage : Page
                 // Leave a little room above so the most recent answered step stays
                 // visible for continuity, but keep the active title at the top.
                 var target = Math.Max(0, cardTop - 44);
-                MainScroller.ChangeView(null, target, null);
+                scroller.ChangeView(null, target, null, disableAnimation: true);
                 return;
             }
             catch
@@ -1121,7 +1124,7 @@ public sealed partial class WizardPage : Page
                 // Fall back to the previous behaviour if the transform fails.
             }
         }
-        MainScroller.ChangeView(null, MainScroller.ScrollableHeight, null);
+        scroller.ChangeView(null, scroller.ScrollableHeight, null, disableAnimation: true);
     }
 
     private bool TryBuildAnswerValue(out object value)
