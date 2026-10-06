@@ -7930,4 +7930,5 @@
   <data name="Onboarding_NativeConnection_Cancelled" xml:space="preserve"><value>连接检查已取消。你的草稿未更改。</value></data>
   <data name="Onboarding_Wizard_CompatibilitySpeech" xml:space="preserve"><value>让我们完成 AI 连接。</value></data>
   <data name="Onboarding_AiSetup_Speech.Text" xml:space="preserve"><value>为我选一个大脑。</value></data>
+  <data name="Onboarding_Ready_Speech.Text" xml:space="preserve"><value>准备好就开始吧。</value></data>
 </root>

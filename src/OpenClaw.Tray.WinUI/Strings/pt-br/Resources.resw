@@ -7984,4 +7984,5 @@ Suas configurações, gateway, arquivos e modelos permanecem onde estão.</value
   <data name="Onboarding_NativeConnection_Cancelled" xml:space="preserve"><value>Verificação de conexão cancelada. Seu rascunho permanece inalterado.</value></data>
   <data name="Onboarding_Wizard_CompatibilitySpeech" xml:space="preserve"><value>Vamos terminar de conectar sua IA.</value></data>
   <data name="Onboarding_AiSetup_Speech.Text" xml:space="preserve"><value>Escolha um cérebro para mim.</value></data>
+  <data name="Onboarding_Ready_Speech.Text" xml:space="preserve"><value>Pronto quando você estiver.</value></data>
 </root>

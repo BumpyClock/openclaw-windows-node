@@ -45,7 +45,7 @@ public sealed class NativeCompletionPresentationTests
     }
 
     [Fact]
-    public void ChooserHasThreeNativeActions_RecommendationAndErrorOnlyRecovery_NoFooterButtons()
+    public void ChooserHasThreeNativeActions_RecommendationAndErrorOnlyRecovery_NoFinishButton()
     {
         var page = XDocument.Parse(Read(@"src\OpenClaw.SetupEngine.UI\Pages\AiReadyPage.xaml"));
         var actions = page.Descendants().Where(element => element.Name.LocalName == "SettingsCard").ToArray();
@@ -53,10 +53,11 @@ public sealed class NativeCompletionPresentationTests
         XNamespace x = "http://schemas.microsoft.com/winfx/2006/xaml";
         Assert.DoesNotContain(page.Descendants(), element => (string?)element.Attribute(x + "Name") is "SkipButton" or "ReturnButton");
         var recovery = Assert.Single(page.Descendants(), element => (string?)element.Attribute(x + "Name") == "RecoveryButton");
-        Assert.Contains(recovery.Ancestors(), element => element.Name.LocalName == "InfoBar");
+        Assert.Contains(recovery.Ancestors(), element => element.Name.LocalName == "SetupPageShell.Footer");
+        Assert.Equal("{x:Bind ErrorBar.IsOpen, Mode=OneWay}", (string?)recovery.Attribute("Visibility"));
         var badge = Assert.Single(actions[0].Descendants(), element => (string?)element.Attribute(x + "Name") == "RecommendedBadge");
         Assert.Equal("RecommendedBadge", badge.Name.LocalName);
-        Assert.Contains(page.Descendants(), element => element.Name.LocalName == "SetupProgressIndicator");
+        Assert.Contains(page.Descendants(), element => element.Name.LocalName == "SetupStepIndicator");
         Assert.DoesNotContain(page.Descendants(), element => (string?)element.Attribute(x + "Name") == "FinishButton");
         var source = Read(@"src\OpenClaw.SetupEngine.UI\Pages\AiReadyPage.xaml.cs");
         Assert.Contains("args.Owner.OwnsReadyChoice(args.Coordinator)", source);

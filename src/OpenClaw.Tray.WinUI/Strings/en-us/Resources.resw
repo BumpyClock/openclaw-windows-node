@@ -7993,4 +7993,5 @@ Your settings, gateway, files, and models stay where they are.</value>
   <data name="Onboarding_AiSetup_LocalOwnershipFiles" xml:space="preserve"><value>The owned Local AI installation needs file repair. In Local AI settings, stop its runtime and resolve its original Gateway route before repairing files. Keep the ownership receipt.</value></data>
   <data name="Onboarding_Wizard_CompatibilitySpeech" xml:space="preserve"><value>Let's finish connecting your AI.</value></data>
   <data name="Onboarding_AiSetup_Speech.Text" xml:space="preserve"><value>Pick a brain for me.</value></data>
+  <data name="Onboarding_Ready_Speech.Text" xml:space="preserve"><value>Ready when you are.</value></data>
 </root>
