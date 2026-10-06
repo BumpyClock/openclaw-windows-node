@@ -34,6 +34,7 @@ public sealed partial class NativeGatewaySetupPage : Page
             {
                 Header = SetupLocalization.GetString($"Onboarding_Native_{key}"),
                 Content = status,
+                Style = (Style)Resources["NativePhaseRowStyle"],
             };
             AutomationProperties.SetAutomationId(row, $"NativeGateway{key}");
             _rows.Add(status);
@@ -205,6 +206,8 @@ public sealed partial class NativeGatewaySetupPage : Page
         BackButton.IsEnabled = !busy;
         RetryButton.IsEnabled = !busy;
         CancelButton.Visibility = busy ? Visibility.Visible : Visibility.Collapsed;
+        if (!busy && IsLoaded && RetryButton.Visibility == Visibility.Visible)
+            StatusText.StartBringIntoView(new BringIntoViewOptions { AnimationDesired = false });
     }
 
     internal async Task CancelAndWaitAsync()
