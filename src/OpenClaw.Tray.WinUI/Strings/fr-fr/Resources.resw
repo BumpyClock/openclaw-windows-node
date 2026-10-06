@@ -7929,4 +7929,5 @@ Vos paramètres, votre passerelle, vos fichiers et vos modèles restent en place
   <data name="Onboarding_NativeConnection_Checking" xml:space="preserve"><value>Vérification de la connexion au Gateway...</value></data>
   <data name="Onboarding_NativeConnection_Cancelled" xml:space="preserve"><value>Vérification de la connexion annulée. Votre brouillon reste inchangé.</value></data>
   <data name="Onboarding_Wizard_CompatibilitySpeech" xml:space="preserve"><value>Terminons la connexion de votre IA.</value></data>
+  <data name="Onboarding_AiSetup_Speech.Text" xml:space="preserve"><value>Choisissez mon cerveau.</value></data>
 </root>
