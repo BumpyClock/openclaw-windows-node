@@ -463,10 +463,19 @@ public sealed partial class OnboardingAiPageTests(UIThreadFixture ui, ITestOutpu
                 Title = "Provider input", Message = "Synthetic provider prompt. No provider contacted.",
                 DeviceCode = new("TEST-CODE", 15, "Synthetic device code"),
             };
-            await InvokeChoiceAsync(page);
             var dialog = GetDialog(page);
-            await WaitAsync(() => dialog.CanSubmit && Assert.IsType<ScrollViewer>(dialog.Content).IsLoaded);
+            var opened = 0;
+            dialog.Opened += (_, _) => opened++;
+            await InvokeChoiceAsync(page);
+            await WaitAsync(() => opened == 1 && dialog.CanSubmit &&
+                Assert.IsType<ScrollViewer>(dialog.Content).IsLoaded);
+            // Layout readiness precedes the owned popup's finite fade-in.
+            await Task.Delay(400);
+            await OnboardingNativeProof.NextCompositionAsync();
+            dialog.UpdateLayout();
             Assert.Equal("TEST-CODE", Assert.IsType<TextBlock>(dialog.FindName("DeviceCode")).Text);
+            OnboardingNativeProof.AssertFullyVisible(Assert.IsType<TextBlock>(dialog.FindName("DeviceCode")),
+                Assert.IsType<ScrollViewer>(dialog.Content));
             using (await OnboardingNativeProof.CaptureAsync(ui.TestWindow, $"followup-provider-input-{theme}", output,
                 ["Provider input", "TEST-CODE", "Cancel"],
                 requiredContent: Assert.IsType<ScrollViewer>(dialog.Content))) { }
@@ -1194,11 +1203,13 @@ public sealed partial class OnboardingAiPageTests(UIThreadFixture ui, ITestOutpu
                     var label = sectionName == "CandidatesSection"
                         ? (FrameworkElement)Find<TextBlock>(page, "CandidatesHeading")
                         : Find<SettingsCard>(page, "ApiKeysButton");
+                    if (sectionName == "CandidatesSection")
+                        Assert.Equal("Detected AI choices", Assert.IsType<TextBlock>(label).Text);
                     OnboardingNativeProof.AssertFullyVisible(label, scroll);
                     OnboardingNativeProof.AssertFullyVisible(footer, root);
                     using (await OnboardingNativeProof.CaptureAsync(ui.TestWindow,
                         $"onboarding-ai-full-{state}-{theme}-{sectionName}", output,
-                        [sectionName == "CandidatesSection" ? "Available on your Gateway" : "API Keys", "Refresh"],
+                        [sectionName == "CandidatesSection" ? "Detected AI choices" : "API Keys", "Refresh"],
                         new { state, theme, sectionBounds = Bounds(label), footerBounds = Bounds(footer) },
                         requiredContent: page)) { }
                 }
