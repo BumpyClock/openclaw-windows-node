@@ -7926,4 +7926,7 @@ Uw instellingen, gateway, bestanden en modellen blijven op hun plaats.</value>
   <data name="Onboarding_AiSetup_LocalOwnershipInvalid" xml:space="preserve"><value>Het opgeslagen eigendom van lokale AI, het model of de gatewayconfiguratie komt niet meer overeen. Controleer in het oorspronkelijke Companion-profiel de oorspronkelijke gateway en de modelinstellingen, inclusief gewijzigde vermeldingen in de lijst met toegestane modellen. Bewaar het eigendomsbewijs; kopieer geen referenties en vervang de provider niet.</value></data>
   <data name="Onboarding_AiSetup_LocalOwnershipUnavailable" xml:space="preserve"><value>Het eigendom of de configuratie van de oorspronkelijke gateway kon niet worden gecontroleerd. Verbind deze gateway opnieuw en controleer nogmaals. Er is niets gewijzigd.</value></data>
   <data name="Onboarding_AiSetup_LocalOwnershipFiles" xml:space="preserve"><value>De bestanden van de beheerde lokale AI-installatie moeten worden hersteld. Stop de runtime in de instellingen voor lokale AI en los de route naar de oorspronkelijke gateway op voordat u bestanden herstelt. Bewaar het eigendomsbewijs.</value></data>
+  <data name="Onboarding_NativeConnection_Speech" xml:space="preserve"><value>Laten we uw verbinding controleren.</value></data>
+  <data name="Onboarding_NativeConnection_Checking" xml:space="preserve"><value>De Gateway-verbinding controleren...</value></data>
+  <data name="Onboarding_NativeConnection_Cancelled" xml:space="preserve"><value>Verbindingscontrole geannuleerd. Uw concept is ongewijzigd.</value></data>
 </root>

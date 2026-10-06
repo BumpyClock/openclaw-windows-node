@@ -7925,4 +7925,7 @@
   <data name="Onboarding_AiSetup_LocalOwnershipInvalid" xml:space="preserve"><value>已儲存的本機 AI 擁有權、模型或閘道設定不再相符。請在原始 Companion 設定檔中檢查原始閘道及其模型設定，包括已修改的模型允許清單項目。保留擁有權憑據，不要複製驗證認證或取代提供者。</value></data>
   <data name="Onboarding_AiSetup_LocalOwnershipUnavailable" xml:space="preserve"><value>無法檢查原始閘道的擁有權或設定。請重新連線原始閘道並再次檢查。未進行任何變更。</value></data>
   <data name="Onboarding_AiSetup_LocalOwnershipFiles" xml:space="preserve"><value>受管理的本機 AI 安裝需要修復檔案。請先在本機 AI 設定中停止執行階段並解決原始閘道路由問題，再修復檔案。保留擁有權憑據。</value></data>
+  <data name="Onboarding_NativeConnection_Speech" xml:space="preserve"><value>讓我們檢查你的連線。</value></data>
+  <data name="Onboarding_NativeConnection_Checking" xml:space="preserve"><value>正在檢查 Gateway 連線...</value></data>
+  <data name="Onboarding_NativeConnection_Cancelled" xml:space="preserve"><value>連線檢查已取消。你的草稿未變更。</value></data>
 </root>

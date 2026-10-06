@@ -7925,4 +7925,7 @@
   <data name="Onboarding_AiSetup_LocalOwnershipInvalid" xml:space="preserve"><value>已保存的本地 AI 所有权、模型或网关配置不再匹配。请在原始 Companion 配置文件中检查原始网关及其模型设置，包括已修改的模型允许列表条目。保留所有权凭据，不要复制身份验证凭据或替换提供程序。</value></data>
   <data name="Onboarding_AiSetup_LocalOwnershipUnavailable" xml:space="preserve"><value>无法检查原始网关的所有权或配置。请重新连接原始网关并再次检查。未进行任何更改。</value></data>
   <data name="Onboarding_AiSetup_LocalOwnershipFiles" xml:space="preserve"><value>受管理的本地 AI 安装需要修复文件。请先在本地 AI 设置中停止运行时并解决原始网关路由问题，再修复文件。保留所有权凭据。</value></data>
+  <data name="Onboarding_NativeConnection_Speech" xml:space="preserve"><value>让我们检查你的连接。</value></data>
+  <data name="Onboarding_NativeConnection_Checking" xml:space="preserve"><value>正在检查 Gateway 连接...</value></data>
+  <data name="Onboarding_NativeConnection_Cancelled" xml:space="preserve"><value>连接检查已取消。你的草稿未更改。</value></data>
 </root>
