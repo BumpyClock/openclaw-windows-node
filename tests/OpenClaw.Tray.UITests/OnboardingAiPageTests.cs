@@ -313,11 +313,12 @@ public sealed partial class OnboardingAiPageTests(UIThreadFixture ui, ITestOutpu
             picker.SelectedIndex = 0;
             var selected = picker.SelectedItem;
             var input = Find<PasswordBox>(page, "ApiKeyInput");
+            var scroll = Find<SetupPageShell>(page, "AiShell").Scroller;
             input.Password = "synthetic-popup-test-key";
-            input.StartBringIntoView(new BringIntoViewOptions { AnimationDesired = false });
+            scroll.ChangeView(null, scroll.ScrollableHeight, null, disableAnimation: true);
             await OnboardingNativeProof.NextCompositionAsync();
             await WaitAsync(() => Find<Button>(page, "ApiKeyConnectButton").IsEnabled);
-            var scroll = Find<SetupPageShell>(page, "AiShell").Scroller;
+            await WaitAsync(IsInputVisible);
             var viewportSettled = true;
             scroll.ViewChanged += (_, e) => viewportSettled = !e.IsIntermediate;
             var offset = scroll.VerticalOffset;
@@ -345,8 +346,8 @@ public sealed partial class OnboardingAiPageTests(UIThreadFixture ui, ITestOutpu
             Invoke(cancel);
             await WaitAsync(() => Find<Button>(page, "RefreshButton").IsEnabled &&
                 ReferenceEquals(Microsoft.UI.Xaml.Input.FocusManager.GetFocusedElement(page.XamlRoot), input) &&
-                viewportSettled && (resizedAcrossBreakpoint ? IsInputVisible() :
-                    Math.Abs(scroll.VerticalOffset - offset) <= 1));
+                viewportSettled && IsInputVisible() &&
+                (resizedAcrossBreakpoint || Math.Abs(scroll.VerticalOffset - offset) <= 1));
             if (resizedAcrossBreakpoint)
                 OnboardingNativeProof.AssertFullyVisible(input, scroll);
             else
@@ -382,9 +383,12 @@ public sealed partial class OnboardingAiPageTests(UIThreadFixture ui, ITestOutpu
 
             bool IsInputVisible()
             {
-                var bounds = input.TransformToVisual(scroll).TransformBounds(
+                var root = Assert.IsAssignableFrom<FrameworkElement>(scroll.XamlRoot.Content);
+                var bounds = input.TransformToVisual(root).TransformBounds(
                     new Windows.Foundation.Rect(0, 0, input.ActualWidth, input.ActualHeight));
-                return bounds.Top >= 0 && bounds.Bottom <= scroll.ViewportHeight;
+                var viewport = scroll.TransformToVisual(root).TransformBounds(
+                    new Windows.Foundation.Rect(0, 0, scroll.ViewportWidth, scroll.ViewportHeight));
+                return bounds.Top >= viewport.Top && bounds.Bottom <= viewport.Bottom;
             }
         }, theme: theme, width: width, configure: transport =>
         {
