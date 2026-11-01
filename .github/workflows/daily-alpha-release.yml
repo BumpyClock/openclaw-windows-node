@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: boat
     steps:
       - name: Select Pacific 2:00 PM schedule
         id: pacific_schedule

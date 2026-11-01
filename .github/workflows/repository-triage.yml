@@ -23,7 +23,7 @@ concurrency:
 jobs:
   report:
     name: Build read-only triage report
-    runs-on: ubuntu-latest
+    runs-on: boat
     permissions:
       contents: read
       checks: read
@@ -67,7 +67,7 @@ jobs:
     name: Remove safely expired active ownership
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.operation == 'remove-expired-active-ownership' }}
     needs: report
-    runs-on: ubuntu-latest
+    runs-on: boat
     permissions:
       contents: read
       checks: read

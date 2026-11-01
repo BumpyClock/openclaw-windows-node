@@ -201,6 +201,22 @@ function Test-CodeQlTrigger {
     return Test-PathMatches -Patterns $codeQlPullRequestPaths -Path $Path
 }
 
+foreach ($linuxJobName in @("change-classification", "ci-gate")) {
+    $linuxJob = Get-JobBlock -Name $linuxJobName
+    Assert-Contains -Text $linuxJob -Expected "runs-on: boat" `
+        -Message "Portable job '$linuxJobName' must use Boat."
+    $bootstrapIndex = $linuxJob.IndexOf("uses: ./.github/actions/setup-linux-powershell", [StringComparison]::Ordinal)
+    $shellIndex = $linuxJob.IndexOf("shell: pwsh", [StringComparison]::Ordinal)
+    if ($bootstrapIndex -lt 0 -or $shellIndex -lt 0 -or $bootstrapIndex -gt $shellIndex) {
+        throw "Portable job '$linuxJobName' must bootstrap PowerShell before its first pwsh step."
+    }
+}
+$powerShellBootstrap = Get-Content -LiteralPath (Join-Path $repoRootPath ".github/actions/setup-linux-powershell/action.yml") -Raw
+foreach ($bootstrapToken in @("powershell-7.6.9-linux-x64.tar.gz", "sha256sum --check", 'echo "$tools" >> "$GITHUB_PATH"')) {
+    Assert-Contains -Text $powerShellBootstrap -Expected $bootstrapToken `
+        -Message "Linux PowerShell bootstrap is missing '$bootstrapToken'."
+}
+
 $codeQlPush = Get-WorkflowTriggerBlock -Text $codeQlWorkflow -Name "push"
 $codeQlPullRequest = Get-WorkflowTriggerBlock -Text $codeQlWorkflow -Name "pull_request"
 $codeQlPushBranches = @(Get-InlineYamlList -Text $codeQlPush -Name "branches")

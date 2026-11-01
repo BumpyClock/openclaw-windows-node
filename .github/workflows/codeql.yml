@@ -59,7 +59,7 @@ concurrency:
 jobs:
   advanced-setup:
     name: Advanced setup gate
-    runs-on: ubuntu-latest
+    runs-on: boat
     outputs:
       enabled: ${{ steps.advanced-setup.outputs.enabled }}
     steps:
@@ -117,7 +117,7 @@ jobs:
     name: Actions security
     needs: advanced-setup
     if: ${{ needs.advanced-setup.outputs.enabled == 'true' && (github.event_name != 'pull_request' || !github.event.pull_request.draft) && (github.event_name != 'workflow_dispatch' || inputs.profile == 'all' || inputs.profile == 'actions') }}
-    runs-on: ubuntu-latest
+    runs-on: boat
     timeout-minutes: 15
     steps:
       - name: Checkout
